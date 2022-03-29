@@ -33,5 +33,10 @@ contract("Land", () => {
             result = await land.maxSupply()
             result.toString().should.equal('5');
         });
+
+        it("Should return the number of buildings/land available", async () => {
+            result = await land.getBuildings()
+            result.length.should.equal(5);
+        });
     });
 });
