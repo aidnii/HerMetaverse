@@ -2,6 +2,8 @@ const Land = artifacts.require("./Land")
 
 require('chai').use(require('chai-as-promised')).should()
 
+const EVM_REVERT = "VM Exception while processing transaction: revert";
+
 contract("Land", ([owner1, owner2]) => {
     const NAME = "Her Metaverse Buildings"
     const SYMBOL = "HMB"
@@ -57,6 +59,8 @@ contract("Land", ([owner1, owner2]) => {
     });
 
     describe("#Failure", () => {
-        
+        it("Should prevent mint with 0 value", async () => {
+            await land.mint(1, { from: owner1, value: 0}).should.be.rejectedWith(EVM_REVERT);
+        });
     });
 });
