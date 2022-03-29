@@ -2,7 +2,7 @@ const Land = artifacts.require("./Land")
 
 require('chai').use(require('chai-as-promised')).should()
 
-contract("Land", () => {
+contract("Land", ([owner1, owner2]) => {
     const NAME = "Her Metaverse Buildings"
     const SYMBOL = "HMB"
     const COST = web3.utils.toWei('1', 'ether')
@@ -37,6 +37,17 @@ contract("Land", () => {
         it("Should return the number of buildings/land available", async () => {
             result = await land.getBuildings()
             result.length.should.equal(5);
+        });
+    });
+
+    describe("Mint", () => {
+        describe("Success", () => {
+            result = land.mint(1, {from: owner1, value: COST});
+        });
+
+        it("Should update the owner address", async () => {
+            result = land.ownerOf(1);
+            result.should.equal(owner1);
         });
     });
 });
