@@ -11,12 +11,17 @@ contract("Land", () => {
    
     beforeEach( async () => {
         land = await Land.new(NAME, SYMBOL, COST)
-    })
+    });
 
     describe("Deployment", () => {
-        it("Should returns the contract name", async () => {
-            result = await land.name()
-            result.should.equal(NAME)
-        })
-    })
-})
+        it("Should return the contract name", async () => {
+            result = await land.name();
+            result.should.equal(NAME);
+        });
+
+        it("Should return the symbol", async () => {
+            result = await land.name();
+            result.should.equal(SYMBOL);
+        });
+    });
+});
