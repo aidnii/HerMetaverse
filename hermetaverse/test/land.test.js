@@ -13,7 +13,7 @@ contract("Land", ([owner1, owner2]) => {
         land = await Land.new(NAME, SYMBOL, COST)
     });
 
-    describe("Deployment", () => {
+    describe("#Deployment", () => {
         it("Should return the contract name", async () => {
             result = await land.name();
             result.should.equal(NAME);
@@ -40,7 +40,7 @@ contract("Land", ([owner1, owner2]) => {
         });
     });
 
-    describe("Mint", () => {
+    describe("#Mint", () => {
         describe("Success", () => {
             result = await land.mint(1, {from: owner1, value: COST});
 
@@ -54,5 +54,9 @@ contract("Land", ([owner1, owner2]) => {
                 result.owner1.should.equal(owner1);
             });
         });
+    });
+
+    describe("#Failure", () => {
+        
     });
 });
