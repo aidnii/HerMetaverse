@@ -20,8 +20,13 @@ contract("Land", () => {
         });
 
         it("Should return the symbol", async () => {
-            result = await land.name();
+            result = await land.symbol();
             result.should.equal(SYMBOL);
+        });
+
+        it("Should return the cost to mint", async () => {
+            result = await land.cost()
+            result.toString().should.equal(COST);
         });
     });
 });
