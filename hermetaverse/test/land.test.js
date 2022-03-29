@@ -42,12 +42,17 @@ contract("Land", ([owner1, owner2]) => {
 
     describe("Mint", () => {
         describe("Success", () => {
-            result = land.mint(1, {from: owner1, value: COST});
-        });
+            result = await land.mint(1, {from: owner1, value: COST});
 
-        it("Should update the owner address", async () => {
-            result = land.ownerOf(1);
-            result.should.equal(owner1);
+            it("Should update the owner address", async () => {
+                result = await land.ownerOf(1);
+                result.should.equal(owner1);
+            });
+    
+            it("Should update the building details", async () => {
+                result = await land.getBuildings(1);
+                result.owner1.should.equal(owner1);
+            });
         });
     });
 });
