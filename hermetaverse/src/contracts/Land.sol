@@ -92,5 +92,13 @@ contract Land is ERC721 {
 
         _safeTransfer(from, to, tokenId, _data);
     }
+
+    function getBuildings() public view returns(Building[] memory) {
+        return buildings;
+    }
+
+    function getBuildings(uint256 _id) public view returns (Building memory) {
+        return buildings[_id - 1];
+    }
 }
 
