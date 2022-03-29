@@ -28,5 +28,10 @@ contract("Land", () => {
             result = await land.cost()
             result.toString().should.equal(COST);
         });
+
+        it("Should return the max supply", async () => {
+            result = await land.maxSupply()
+            result.toString().should.equal('5');
+        });
     });
 });
