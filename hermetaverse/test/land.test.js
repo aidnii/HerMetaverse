@@ -62,5 +62,9 @@ contract("Land", ([owner1, owner2]) => {
         it("Should prevent mint with 0 value", async () => {
             await land.mint(1, { from: owner1, value: 0}).should.be.rejectedWith(EVM_REVERT);
         });
+
+        it("Should prevent mint with invalid ID", async () => {
+            await land.mint(100, { from: owner1, value: 1}).should.be.rejectedWith(EVM_REVERT);
+        });
     });
 });
