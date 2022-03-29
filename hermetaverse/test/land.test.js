@@ -72,4 +72,14 @@ contract("Land", ([owner1, owner2]) => {
             await land.mint(1, { from: owner2, value: COST}).should.be.rejectedWith(EVM_REVERT);
         });
     });
+
+    describe("#Transfers", () => {
+        describe('success', () => {
+            beforeEach( async () => {
+                await land.mint(1, {from : owner1, value: COST });
+                await land.approve(owner2, 1, { from: owner1 });
+                await land.transferFrom(owner1, owner2, 1, { from: owner2 });
+            });
+        });
+    });
 });
