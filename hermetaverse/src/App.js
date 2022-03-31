@@ -8,6 +8,12 @@ import { Canvas } from '@react-three/fiber';
 import { Sky, MapControls } from '@react-three/drei';
 import { Physics } from '@react-three/cannon';
 
+// Importing Components
+import Navbar from './components/Navbar';
+import Plane from './components/Plane';
+import Plot from './components/Plot';
+import Building from './components/Building';
+
 import Land from './abis/Land.json';
 
 function App() {
