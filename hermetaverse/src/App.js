@@ -48,9 +48,15 @@ function App() {
       window.ethereum.on('chainChanged', (chainId) => {
         window.location.reload();
       }
-    
     }
-  };
+  }
+
+  const web3Handler = async () => {
+    if (web3) {
+      const account = await window.ethereum.request({ method: 'eth_requestAccounts'});
+      setAccount(accounts[0])
+    }
+  }
 
   return (
     <div>
