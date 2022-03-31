@@ -3,6 +3,11 @@ import './App.css';
 import Web3 from 'web3';
 import { useState, useEffect } from 'react';
 
+import { useState, useEffect } from 'react';
+import { Canvas } from '@react-three/fiber';
+import { Sky, MapControls } from '@react-three/drei';
+import { Physics } from '@react-three/cannon';
+
 import Land from './abis/Land.json';
 
 function App() {
