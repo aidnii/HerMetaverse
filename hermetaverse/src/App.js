@@ -1,9 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Web3 from 'web3';
-import { useState, useEffect } from 'react';
-
-import { useState, useEffect } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Sky, MapControls } from '@react-three/drei';
 import { Physics } from '@react-three/cannon';
@@ -81,6 +79,41 @@ function App() {
         <Sky distance={450000} sunPosition={[1, 10, 0]} inclination={0} azimuth={0.25} />
 
         <ambientLight intensity={0.5} />
+
+        <Physics>
+          { buildings && buildings.map((building, index) => {
+            if (building.owner === '0x0000000000000000000000000000000000000000') {
+              return (
+                <Plot
+										key={index}
+										position={[building.posX, building.posY, 0.1]}
+										size={[building.sizeX, building.sizeY]}
+										landId={index + 1}
+										landInfo={building}
+										setLandName={setLandName}
+										setLandOwner={setLandOwner}
+										setHasOwner={setHasOwner}
+										setLandId={setLandId}
+									/>
+              )
+            } else {
+              return (
+                <Building
+										key={index}
+										position={[building.posX, building.posY, 0.1]}
+										size={[building.sizeX, building.sizeY, building.sizeZ]}
+										landId={index + 1}
+										landInfo={building}
+										setLandName={setLandName}
+										setLandOwner={setLandOwner}
+										setHasOwner={setHasOwner}
+										setLandId={setLandId}
+									/>
+              )
+            }
+          })}
+        </Physics>
+        <Plane></Plane>
       </Canvas>
     </div>
   );
