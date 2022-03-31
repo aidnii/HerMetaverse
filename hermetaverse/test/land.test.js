@@ -94,6 +94,8 @@ contract("Land", ([owner1, owner2]) => {
     });
 
     describe("#Failure", () => {
-
+        it("Should prevent transfers without ownership", async () => {
+            result = await land.transferFrom(owner1, owner2, 1, { from: owner2 }).should.be.rejectedWith(EVM_REVERT);
+        });
     });
 });
