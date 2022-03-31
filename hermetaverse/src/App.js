@@ -13,6 +13,11 @@ function App() {
   const [cost,setCost] = useState(null);
   const [buildings,setBuildings] = useState(null);
 
+  const [landId, setLandId] = useState(null);
+	const [landName, setLandName] = useState(null);
+	const [landOwner, setLandOwner] = useState(null);
+	const [hasOwner, setHasOwner] = useState(false);
+
   useEffect( () => {
     loadBlockchainData()
   }, [account])
