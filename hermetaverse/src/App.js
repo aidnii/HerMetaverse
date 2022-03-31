@@ -70,7 +70,7 @@ function App() {
 
   return (
     <div>
-      Her Virtual Land
+      <Navbar web3Handler={web3Handler} account={account} />
     </div>
   );
 }
