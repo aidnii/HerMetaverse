@@ -76,6 +76,7 @@ function App() {
     <div>
       <Navbar web3Handler={web3Handler} account={account} />
       <Canvas camera={{ position: [0, 0, 30], up: [0, 0, 1], far: 10000 }}>
+      <Suspense fallback={null}>
         <Sky distance={450000} sunPosition={[1, 10, 0]} inclination={0} azimuth={0.25} />
 
         <ambientLight intensity={0.5} />
@@ -113,8 +114,38 @@ function App() {
             }
           })}
         </Physics>
-        <Plane></Plane>
+        <Plane />
+        </Suspense>
+        <MapControls />
       </Canvas>
+
+      {landId && (
+				<div className="info">
+					<h1 className="flex">{landName}</h1>
+
+					<div className='flex-left'>
+						<div className='info--id'>
+							<h2>ID</h2>
+							<p>{landId}</p>
+						</div>
+
+						<div className='info--owner'>
+							<h2>Owner</h2>
+							<p>{landOwner}</p>
+						</div>
+
+						{!hasOwner && (
+							<div className='info--owner'>
+								<h2>Cost</h2>
+								<p>{`${cost} ETH`}</p>
+							</div>
+						)}
+					</div>
+
+					{!hasOwner && (
+						<button onClick={() => buyHandler(landId)} className='button info--buy'>Buy Property</button>
+					)}
+
     </div>
   );
 }
