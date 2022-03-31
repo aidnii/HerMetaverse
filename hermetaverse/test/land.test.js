@@ -85,6 +85,11 @@ contract("Land", ([owner1, owner2]) => {
                 result = await land.ownerOf(1);
                 result.should.equal(owner2);
             });
+
+            it("Should update the building details", async () => {
+                result = await land.getBuildings(1);
+                result.owner.should.equal(owner2);
+            });
         });
     });
 });
