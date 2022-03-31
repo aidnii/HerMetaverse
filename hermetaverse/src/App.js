@@ -77,6 +77,7 @@ function App() {
   return (
     <div>
       <Navbar web3Handler={web3Handler} account={account} />
+      <Canvas camera={{ position: [0, 0, 30], up: [0, 0, 1], far: 10000 }}></Canvas>
     </div>
   );
 }
