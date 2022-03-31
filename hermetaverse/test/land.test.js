@@ -15,7 +15,7 @@ contract("Land", ([owner1, owner2]) => {
         land = await Land.new(NAME, SYMBOL, COST)
     });
 
-    describe("#Deployment", () => {
+    describe("Deployment", () => {
         it("Should return the contract name", async () => {
             result = await land.name();
             result.should.equal(NAME);
@@ -42,23 +42,25 @@ contract("Land", ([owner1, owner2]) => {
         });
     });
 
-    describe("#Mint", () => {
+    describe("Minting", () => {
         describe("Success", () => {
-            result = await land.mint(1, {from: owner1, value: COST});
+            beforeEach(async () => {
+                await land.mint(1, { from: owner1, value: COST });
 
-            it("Should update the owner address", async () => {
-                result = await land.ownerOf(1);
-                result.should.equal(owner1);
-            });
+                it("Should update the owner address", async () => {
+                    result = await land.ownerOf(1);
+                    result.should.equal(owner1);
+                });
     
-            it("Should update the building details", async () => {
-                result = await land.getBuildings(1);
-                result.owner1.should.equal(owner1);
+                it("Should update the building details", async () => {
+                    result = await land.getBuildings(1);
+                    result.owner1.should.equal(owner1);
+                });
             });
         });
     });
 
-    describe("#Failure", () => {
+    describe("Failure", () => {
         it("Should prevent mint with 0 value", async () => {
             await land.mint(1, { from: owner1, value: 0}).should.be.rejectedWith(EVM_REVERT);
         });
@@ -73,7 +75,7 @@ contract("Land", ([owner1, owner2]) => {
         });
     });
 
-    describe("#Transfers", () => {
+    describe("Transfers", () => {
         describe('success', () => {
             beforeEach( async () => {
                 await land.mint(1, {from : owner1, value: COST });
@@ -88,12 +90,12 @@ contract("Land", ([owner1, owner2]) => {
 
             it("Should update the building details", async () => {
                 result = await land.getBuildings(1);
-                result.owner.should.equal(owner1);
+                result.owner.should.equal(owner2);
             });
         });
     });
 
-    describe("#Failure", () => {
+    describe("Failure", () => {
         it("Should prevent transfers without ownership", async () => {
             await land.transferFrom(owner1, owner2, 1, { from: owner2 }).should.be.rejectedWith(EVM_REVERT);
         });
