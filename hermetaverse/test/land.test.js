@@ -92,4 +92,8 @@ contract("Land", ([owner1, owner2]) => {
             });
         });
     });
+
+    describe("#Failure", () => {
+
+    });
 });
