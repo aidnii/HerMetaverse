@@ -72,6 +72,21 @@ function App() {
     }
   }
 
+  const buyHandler = async (_id) => {
+		try {
+			await landContract.methods.mint(_id).send({ from: account, value: '1000000000000000000' })
+
+			const buildings = await landContract.methods.getBuildings().call()
+			setBuildings(buildings)
+
+			setLandName(buildings[_id - 1].name)
+			setLandOwner(buildings[_id - 1].owner)
+			setHasOwner(true)
+		} catch (error) {
+			window.alert('Error occurred when buying')
+		}
+	}
+
   return (
     <div>
       <Navbar web3Handler={web3Handler} account={account} />
@@ -119,35 +134,41 @@ function App() {
         <MapControls />
       </Canvas>
 
-      {landId && (
-				<div className="info">
-					<h1 className="flex">{landName}</h1>
+        {landId && (
+          <div className="info">
+            <h1 className="flex">{landName}</h1>
 
-					<div className='flex-left'>
-						<div className='info--id'>
-							<h2>ID</h2>
-							<p>{landId}</p>
-						</div>
+            <div className='flex-left'>
+              <div className='info--id'>
+                <h2>ID</h2>
+                <p>{landId}</p>
+              </div>
 
-						<div className='info--owner'>
-							<h2>Owner</h2>
-							<p>{landOwner}</p>
-						</div>
+              <div className='info--owner'>
+                <h2>Owner</h2>
+                <p>{landOwner}</p>
+              </div>
 
-						{!hasOwner && (
-							<div className='info--owner'>
-								<h2>Cost</h2>
-								<p>{`${cost} ETH`}</p>
-							</div>
-						)}
-					</div>
+              {!hasOwner && (
+                <div className='info--owner'>
+                  <h2>Cost</h2>
+                  <p>{`${cost} ETH`}</p>
+                </div>
+              )}
+            </div>
 
-					{!hasOwner && (
-						<button onClick={() => buyHandler(landId)} className='button info--buy'>Buy Property</button>
-					)}
+            {!hasOwner && (
+              <button onClick={() => buyHandler(landId)} className='button info--buy'>Buy Property</button>
+            )}
 
-    </div>
+</div>
+        )} 
+
+</div>
   );
 }
+
+
+
 
 export default App;
