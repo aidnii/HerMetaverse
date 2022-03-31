@@ -80,6 +80,11 @@ contract("Land", ([owner1, owner2]) => {
                 await land.approve(owner2, 1, { from: owner1 });
                 await land.transferFrom(owner1, owner2, 1, { from: owner2 });
             });
+
+            it("Should update the owner address", async () => {
+                result = await land.ownerOf(1);
+                result.should.equal(owner2);
+            });
         });
     });
 });
